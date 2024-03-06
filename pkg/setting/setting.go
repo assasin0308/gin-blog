@@ -8,13 +8,17 @@ import (
 )
 
 var (
-	Cfg          *ini.File
-	RunMode      string
+	Cfg *ini.File
+
+	RunMode string
+
 	HTTPPort     int
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
-	PageSize     int
-	JwtSecret    string
+
+	PageSize int
+
+	JwtSecret string
 )
 
 func init() {
@@ -35,7 +39,9 @@ func LoadServer() {
 		log.Fatalf("Fail to get section 'server': %v", err)
 	}
 	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
+
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
+	println(HTTPPort)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
 	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 

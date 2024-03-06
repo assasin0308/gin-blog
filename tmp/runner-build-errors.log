@@ -1,0 +1,1 @@
+main.go:5:2: package gin-blog/pkg/setting is not in std (E:\installed\go.1.22.0\src\gin-blog\pkg\setting)
