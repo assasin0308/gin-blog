@@ -3,9 +3,9 @@ package v1
 import (
 	"blog/models"
 	"blog/pkg/e"
+	"blog/pkg/logging"
 	"blog/pkg/setting"
 	"blog/pkg/util"
-	"log"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
@@ -66,7 +66,7 @@ func AddTag(c *gin.Context) {
 
 	} else {
 		for _, err := range valid.Errors {
-			log.Fatalln(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 
 	}
@@ -114,7 +114,7 @@ func EditTag(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Fatalln(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -140,7 +140,7 @@ func DeleteTag(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Fatalln(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
