@@ -30,8 +30,6 @@ func init() {
 	}
 
 	dbType = sec.Key("TYPE").String()
-
-	println(dbType)
 	dbName = sec.Key("NAME").String()
 	user = sec.Key("USER").String()
 	password = sec.Key("PASSWORD").String()

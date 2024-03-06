@@ -20,7 +20,7 @@ type Article struct {
 	State      int    `json:"state"`
 }
 
-func ExistArticleById(id int) bool {
+func ExistArticleByID(id int) bool {
 	var article Article
 	db.Select("id").Where("id = ? ", id).Find(&article)
 	if article.ID > 0 {
