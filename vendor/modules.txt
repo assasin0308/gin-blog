@@ -31,6 +31,9 @@ github.com/chenzhuoyu/base64x
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
 ## explicit
 github.com/dgrijalva/jwt-go
+# github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
+## explicit
+github.com/fvbock/endless
 # github.com/gabriel-vasile/mimetype v1.4.2
 ## explicit; go 1.20
 github.com/gabriel-vasile/mimetype
