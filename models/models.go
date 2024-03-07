@@ -4,6 +4,7 @@ import (
 	"blog/pkg/setting"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -49,8 +50,37 @@ func init() {
 	db.DB().SetMaxIdleConns(30)
 	db.DB().SetMaxOpenConns(100)
 
+	//Rigister  updateTimeStampForCreateCallback and  updateTimeStampForUpdateCallback func
+	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+
 }
 
+// gorm Callbacks
+func updateTimeStampForCreateCallback(scope *gorm.Scope) {
+	if !scope.HasError() {
+		nowtime := time.Now().Unix()
+		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
+			if createTimeField.IsBlank {
+				createTimeField.Set(nowtime)
+			}
+		}
+
+		if modifyTimeField, ok := scope.FieldByName("ModifiedOn"); ok {
+			if modifyTimeField.IsBlank {
+				modifyTimeField.Set(nowtime)
+			}
+		}
+	}
+
+}
+
+func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
+	if _, ok := scope.Get("gorm:update_column"); !ok {
+		scope.SetColumn("ModifiedOn", time.Now().Unix())
+	}
+
+}
 func closeDB() {
 	defer db.Close()
 }
